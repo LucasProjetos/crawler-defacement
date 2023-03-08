@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 #CMD [ "python3", "./go-spider.py" ]
-CMD [ "scrapy", "crawl", "defacementcrawler.py", "-s", "JOBDIR=jobs/mycrawler" ]
+CMD [ "scrapy", "crawl", "defacementcrawler", "-s", "JOBDIR=jobs/mycrawler" ]
