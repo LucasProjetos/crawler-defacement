@@ -1,0 +1,9 @@
+# Ignore log files
+logs/*
+mycrawler-all.jsonl
+
+# Ignore job files
+jobs/*
+
+# Ignore cache files
+**/__pycache__/**
