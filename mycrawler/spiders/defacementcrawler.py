@@ -9,7 +9,7 @@ class DefacementCrawler(CrawlSpider):
   logger = logging.getLogger(__name__)
   handle_httpstatus_list = range(200, 300) # 200 - 299: success http status codes
   name = 'defacementcrawler'
-  allowed_domains = ['example.com', 'example2.com']
+  allowed_domains = ['exemplo.com', 'example.com']
 
   start_urls = ['https://www.example.com/']
   custom_settings = {

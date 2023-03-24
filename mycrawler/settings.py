@@ -100,3 +100,5 @@ RETRY_ENABLED = False
 # Reduce download timeout
 DOWNLOAD_TIMEOUT = 15
 #JOBDIR = "jobs/mycrawler/"
+
+DUPEFILTER_CLASS = 'mycrawler.dupefilters.MyRFPDupeFilter'
