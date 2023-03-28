@@ -9,9 +9,9 @@ class DefacementCrawler(CrawlSpider):
   logger = logging.getLogger(__name__)
   handle_httpstatus_list = range(200, 300) # 200 - 299: success http status codes
   name = 'defacementcrawler'
-  allowed_domains = ['www.trt2.jus.br', 'www.trtsp.jus.br', 'ww2.trt2.jus.br', 'ww2.trtsp.jus.br']
+  allowed_domains = ['www.exemplo.com', 'www.exemplo2.com', 'ww2.exemplo.com', 'ww2.exemplo2.com']
 
-  start_urls = ['https://ww2.trt2.jus.br/']
+  start_urls = ['https://ww2.exemplo.com/']
   custom_settings = {
     'LOG_FILE': 'logs/defacementcrawler.log',
     'LOG_LEVEL': 'DEBUG'
