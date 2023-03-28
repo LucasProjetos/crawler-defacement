@@ -37,7 +37,6 @@ Rule( LinkExtractor(tags=('applet'), attrs='code', unique=True), callback='parse
           off_item['status']  = 0
           off_item['follow']  = False
           off_item['offsite'] = True
-          off_item['base64']  = base64.urlsafe_b64encode(link.url.encode("utf-8")).decode("utf-8")
           #yield off_item
           item_list.append(off_item)
       item = MycrawlerItem()
@@ -47,7 +46,6 @@ Rule( LinkExtractor(tags=('applet'), attrs='code', unique=True), callback='parse
       item['status']    = response.status
       item['follow']    = follow
       item['offsite']   = False
-      item['base64']    = base64.urlsafe_b64encode(response.url.encode("utf-8")).decode("utf-8")
-      item['file_urls'] = [response.url]  #deactivate this to deactive page download
+      item['file_urls'] = [response.url]  #deactivate this to deactivate page download
       item_list.append(item)
       return item_list

@@ -16,6 +16,5 @@ class MycrawlerItem(scrapy.Item):
     title = scrapy.Field()
     follow = scrapy.Field()
     offsite = scrapy.Field()
-    base64 = scrapy.Field()
     file_urls = scrapy.Field()
     files = scrapy.Field()
