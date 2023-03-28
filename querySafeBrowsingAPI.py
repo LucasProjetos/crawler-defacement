@@ -6,7 +6,7 @@
 
 #teste de consistencia de linhas no output "safebrowsing.json" x entrada "mycrawler.json"
 # jq length safebrowsing.json
-# wc -l mycrawler-all.jsonl
+# cat mycrawler-all.jsonl |grep -v file:// |wc -l
 
 import json
 from pysafebrowsing import SafeBrowsing
