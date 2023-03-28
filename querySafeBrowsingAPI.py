@@ -10,13 +10,14 @@
 
 import json
 from pysafebrowsing import SafeBrowsing
+from pysafebrowsing.api import SafeBrowsingWeirdError
 
-jsonl = open('mycrawler.jsonl', 'r')
+jsonl = open('mycrawler-all.jsonl', 'r')
 output = open('safebrowsing.json', 'w') # Sobrescreve, caso o arquivo jah exista
 
 # agrupar o conteudo em listas de 500 urls cada ou menos
 listlen = 500
-KEY = 'replace_this_fake_Google_Safe_Browsing_API_KEY' # Em https://console.cloud.google.com/
+KEY = 'HEEEY_put_your_google_cloud_API_Key_here' # Em https://console.cloud.google.com/
 
 s = SafeBrowsing(KEY)
 
@@ -28,13 +29,19 @@ for line in jsonl:
         line_json = json.loads(line)
     except:
         continue
-    url = line_json["desturl"]
+    if line_json["desturl"].startswith("http"):
+        url = line_json["desturl"]
+    else:
+        continue
     url_list.append(url)
     counter += 1
     if counter > listlen:
         # faz a query junto ao SafeBrowsing
         ##print(url_list)
-        r = s.lookup_urls(url_list)
+        try:
+            r = s.lookup_urls(url_list)
+        except SafeBrowsingWeirdError:
+            pass
         #exemplo de resultado (r)
         #{'http://malware.testing.google.test/testing/malware/': {'malicious': True, 'platforms': ['ANY_PLATFORM'], 'threats': ['MALWARE'], 'cache': '300s'}, 'http://www.lucasprojetos.com.br/': {'malicious': False}}
         # adiciono o resultado (r) ao dicionario all_lookups que serah escrito em arquivo
