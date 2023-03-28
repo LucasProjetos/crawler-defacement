@@ -23,7 +23,7 @@ class MycrawlerPipeline(object):
     item_seen = []
 
     def open_spider(self, spider):
-        self.jsonlines_all = JsonLinesItemExporter(open("mycrawler-all.jsonl", "wb"))
+        self.jsonlines_all = JsonLinesItemExporter(open("mycrawler-all.jsonl", "wb"), ensure_ascii=False)
         self.jsonlines_all.start_exporting()
 
     def close_spider(self, spider):

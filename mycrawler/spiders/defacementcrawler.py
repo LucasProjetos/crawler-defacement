@@ -40,7 +40,7 @@ Rule( LinkExtractor(tags=('applet'), attrs='code', unique=True), callback='parse
           #yield off_item
           item_list.append(off_item)
       item = MycrawlerItem()
-      item['title']     = response.css('title::text').extract_first().encode("utf-8")
+      item['title']     = response.css('title::text').extract_first()
       item['desturl']   = response.url
       item['referer']   = response.request.headers["Referer"].decode("utf-8")
       item['status']    = response.status
