@@ -2,16 +2,16 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 #from scrapy.utils.url import url_is_from_any_domain
 from mycrawler.items import MycrawlerItem
-import logging
+import logging, base64
  
  
 class DefacementCrawler(CrawlSpider):
   logger = logging.getLogger(__name__)
   handle_httpstatus_list = range(200, 300) # 200 - 299: success http status codes
   name = 'defacementcrawler'
-  allowed_domains = ['exemplo.com', 'example.com']
+  allowed_domains = ['www.trt2.jus.br', 'www.trtsp.jus.br', 'ww2.trt2.jus.br', 'ww2.trtsp.jus.br']
 
-  start_urls = ['https://www.example.com/']
+  start_urls = ['https://ww2.trt2.jus.br/']
   custom_settings = {
     'LOG_FILE': 'logs/defacementcrawler.log',
     'LOG_LEVEL': 'DEBUG'
@@ -37,14 +37,17 @@ Rule( LinkExtractor(tags=('applet'), attrs='code', unique=True), callback='parse
           off_item['status']  = 0
           off_item['follow']  = False
           off_item['offsite'] = True
+          off_item['base64']  = base64.urlsafe_b64encode(link.url.encode("utf-8")).decode("utf-8")
           #yield off_item
           item_list.append(off_item)
       item = MycrawlerItem()
-      item['title']   = response.css('title::text').extract_first()
-      item['desturl'] = response.url
-      item['referer'] = response.request.headers["Referer"].decode("utf-8")
-      item['status']  = response.status
-      item['follow']  = follow
-      item['offsite'] = False
+      item['title']     = response.css('title::text').extract_first().encode("utf-8")
+      item['desturl']   = response.url
+      item['referer']   = response.request.headers["Referer"].decode("utf-8")
+      item['status']    = response.status
+      item['follow']    = follow
+      item['offsite']   = False
+      item['base64']    = base64.urlsafe_b64encode(response.url.encode("utf-8")).decode("utf-8")
+      item['file_urls'] = [response.url]  #deactivate this to deactive page download
       item_list.append(item)
       return item_list

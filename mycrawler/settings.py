@@ -27,10 +27,13 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 10
+DOWNLOAD_DELAY = 0
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 15
+CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
+# Reduce download timeout
+DOWNLOAD_TIMEOUT = 15
+CONCURRENT_ITEMS = 300
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
@@ -72,7 +75,12 @@ SPIDER_MIDDLEWARES = {
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'mycrawler.pipelines.MycrawlerPipeline': 300,
+    'mycrawler.pipelines.MyFilesPipeline': 1,
+#DEFAULT ONE, which will replace filename with hash, not good#    'scrapy.pipelines.files.FilesPipeline': 1,
 }
+FILES_STORE = 'files_downloaded'
+FILES_URLS_FIELD = 'file_urls'
+FILES_RESULT_FIELD = 'files'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -97,8 +105,6 @@ ITEM_PIPELINES = {
 
 # Disable retries
 RETRY_ENABLED = False
-# Reduce download timeout
-DOWNLOAD_TIMEOUT = 15
 #JOBDIR = "jobs/mycrawler/"
 
 DUPEFILTER_CLASS = 'mycrawler.dupefilters.MyRFPDupeFilter'
